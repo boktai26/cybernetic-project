@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miles Walker // System Online</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts - Inter for a clean, modern look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles for the insane robotic theme */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117;
+            /* Darker background */
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Complex Glitch Animation for Hero Text */
+        @keyframes hero-glitch-1 {
+            0% {
+                transform: translate(0);
+                text-shadow: 0 0 5px #00f0ff;
+            }
+
+            20% {
+                transform: translate(-5px, 5px);
+                text-shadow: -5px -5px 10px #ff0000;
+            }
+
+            40% {
+                transform: translate(5px, -5px);
+                text-shadow: 5px 5px 15px #00f0ff;
+            }
+
+            60% {
+                transform: translate(-5px, 5px);
+                text-shadow: -5px -5px 10px #ff0000;
+            }
+
+            80% {
+                transform: translate(5px, -5px);
+                text-shadow: 5px 5px 15px #00f0ff;
+            }
+
+            100% {
+                transform: translate(0);
+                text-shadow: 0 0 5px #00f0ff;
+            }
+        }
+
+        @keyframes hero-glitch-2 {
+            0% {
+                transform: translate(0);
+                text-shadow: 0 0 5px #ff0000;
+            }
+
+            20% {
+                transform: translate(5px, -5px);
+                text-shadow: 5px 5px 10px #00f0ff;
+            }
+
+            40% {
+                transform: translate(-5px, 5px);
+                text-shadow: -5px -5px 15px #ff0000;
+            }
+
+            60% {
+                transform: translate(5px, -5px);
+                text-shadow: 5px 5px 10px #00f0ff;
+            }
+
+            80% {
+                transform: translate(-5px, 5px);
+                text-shadow: -5px -5px 15px #ff0000;
+            }
+
+            100% {
+                transform: translate(0);
+                text-shadow: 0 0 5px #ff0000;
+            }
+        }
+
+        /* Generic Section Pop-in */
+        @keyframes section-pop-in {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animated-section.is-visible {
+            animation: section-pop-in 1s ease-out forwards;
+        }
+
+        /* Section 2: About - Flip Card Animation */
+        .flip-card {
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+            cursor: pointer;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front,
+        .flip-card-back {
+            position: absolute;
+            width: 90%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+
+        /* Section 3: Services - Liquid Hover Effect */
+        .liquid-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .liquid-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(0, 240, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .liquid-card:hover::before {
+            left: 100%;
+        }
+
+        /* Section 4: Skills - Pulsating Ring */
+        .skill-ring {
+            position: relative;
+        }
+
+        .skill-ring.active::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%;
+            height: 120%;
+            border-radius: 50%;
+            border: 2px solid #00f0ff;
+            opacity: 0;
+            animation: pulse-ring 2s infinite ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* Section 5: Projects - Shard effect */
+        .shard-container {
+            position: relative;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        .shard-img {
+            transition: transform 0.5s;
+        }
+
+        .shard-container:hover .shard-img {
+            transform: rotateX(10deg) scale(1.1);
+        }
+
+        .shard-container::before,
+        .shard-container::after {
+            content: '';
+            position: absolute;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .shard-container:hover::before,
+        .shard-container:hover::after {
+            opacity: 1;
+        }
+
+        /* Section 6: API - Network Flow Animation - Rewritten */
+        @keyframes stream-path-1 {
+            from {
+                stroke-dashoffset: 1000;
+            }
+
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes stream-path-2 {
+            from {
+                stroke-dashoffset: 1000;
+            }
+
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .pipeline-path-1 {
+            stroke-dasharray: 1000;
+            animation: stream-path-1 10s linear infinite;
+        }
+
+        .pipeline-path-2 {
+            stroke-dasharray: 1000;
+            animation: stream-path-2 10s linear infinite -5s;
+            /* Staggered start */
+        }
+
+        .network-node {
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+            cursor: pointer;
+        }
+
+        .network-node:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 20px #00f0ff;
+        }
+
+        /* Section 7: Diagnostics - Gauge Animation - Rewritten */
+        @keyframes gauge-fill-animation {
+            from {
+                transform: rotate(-135deg);
+            }
+
+            to {
+                transform: rotate(var(--gauge-rotation-deg, -135deg));
+            }
+        }
+
+        .gauge-needle-animation {
+            transform-origin: 50% 100%;
+            transition: transform 1s ease-out;
+            animation-duration: 1s;
+        }
+
+        /* Section 8: Testimonials - Glitch In/Out */
+        @keyframes testimonial-glitch {
+
+            0%,
+            100% {
+                filter: hue-rotate(0deg);
+                opacity: 1;
+                transform: translate(0, 0);
+            }
+
+            20% {
+                filter: hue-rotate(180deg);
+                opacity: 0.8;
+                transform: translate(-5px, 5px);
+            }
+
+            40% {
+                filter: hue-rotate(0deg);
+                opacity: 1;
+                transform: translate(5px, -5px);
+            }
+
+            60% {
+                filter: hue-rotate(180deg);
+                opacity: 0.8;
+                transform: translate(-5px, 5px);
+            }
+
+            80% {
+                filter: hue-rotate(0deg);
+                opacity: 1;
+                transform: translate(5px, -5px);
+            }
+        }
+
+        .testimonial-text.active {
+            animation: testimonial-glitch 1s ease-in-out forwards;
+            opacity: 1;
+        }
+
+        .testimonial-text {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* Section 9: Robotic Focus - Circuit Board Glow */
+        @keyframes circuit-glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 10px #ff0000, inset 0 0 10px #ff0000;
+            }
+
+            50% {
+                box-shadow: 0 0 20px #00f0ff, inset 0 0 20px #00f0ff;
+            }
+        }
+
+        .circuit-panel {
+            animation: circuit-glow 4s infinite alternate;
+        }
+
+        /* Section 10: Contact - Input Field Scanline */
+        @keyframes scan-focus {
+            0% {
+                box-shadow: 0 0 0 #00f0ff;
+            }
+
+            50% {
+                box-shadow: 0 0 15px #00f0ff, inset 0 0 15px #ff0000;
+            }
+
+            100% {
+                box-shadow: 0 0 0 #ff0000;
+            }
+        }
+
+        .scanline-input:focus {
+            animation: scan-focus 1s infinite alternate;
+        }
+
+        .scanline-input {
+            transition: box-shadow 0.3s;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1f2a3a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #00f0ff;
+            border-radius: 4px;
+        }
+
+        /* Header and Footer Animations */
+        @keyframes header-bg-pulse {
+
+            0%,
+            100% {
+                transform: scale(0.5);
+                opacity: 0.1;
+            }
+
+            50% {
+                transform: scale(1.5);
+                opacity: 0.3;
+            }
+        }
+
+        .header-bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #00f0ff, transparent);
+            opacity: 0.1;
+            animation: header-bg-pulse 10s infinite;
+        }
+
+        @keyframes matrix-scan {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: 0 100%;
+            }
+        }
+
+        .footer-terminal {
+            position: relative;
+            border-top: 2px solid #00f0ff;
+            overflow: hidden;
+        }
+
+        .footer-matrix-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg,
+                    #00f0ff,
+                    transparent 1px,
+                    transparent 100px);
+            opacity: 0.1;
+            animation: matrix-scan 20s linear infinite;
+        }
+
+        /* The glow for the buttons */
+        @keyframes button-glow {
+            from {
+                box-shadow: 0 0 5px #00f0ff;
+            }
+
+            to {
+                box-shadow: 0 0 20px #00f0ff;
+            }
+        }
+
+        /* Header link hover glow */
+        .header-link-glow:hover {
+            color: #00f0ff;
+            text-shadow: 0 0 8px #00f0ff, 0 0 15px #00f0ff, 0 0 25px #00f0ff;
+            transform: scale(1.1);
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* The main project card container */
+        .holographic-card {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 240, 255, 0.1);
+            background-color: rgba(26, 30, 40, 0.6);
+            backdrop-filter: blur(8px);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: skewY(-2deg) scale(1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            border-radius: 1rem;
+            will-change: transform, box-shadow;
+            z-index: 1;
+            /* Ensure cards are above background elements */
+        }
+
+        /* The content wrapper to counteract the skew effect on the text and images */
+        .holographic-card .content-wrapper {
+            transform: skewY(2deg);
+        }
+
+        /* The glowing, moving holographic scanline effect */
+        .holographic-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                    transparent,
+                    rgba(0, 240, 255, 0.5),
+                    transparent);
+            transition: transform 0.8s ease-in-out;
+            z-index: -1;
+        }
+
+        /* On hover, the card lifts and the scanline moves across it */
+        .holographic-card:hover {
+            transform: skewY(-2deg) translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            border-color: #00b0ff;
+        }
+
+        .holographic-card:hover::before {
+            transform: translateX(200%);
+        }
+
+        /* Image and text styling */
+        .holographic-img {
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .holographic-card:hover .holographic-img {
+            transform: scale(1.05);
+        }
+
+        .holographic-title {
+            transition: color 0.6s ease-in-out, text-shadow 0.6s ease-in-out;
+        }
+
+        .holographic-card:hover .holographic-title {
+            color: #00f0ff;
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
+        }
+
+        /* Media queries for responsiveness */
+        @media (max-width: 767px) {
+            .holographic-card {
+                transform: skewY(0deg) scale(1);
+            }
+
+            .holographic-card .content-wrapper {
+                transform: skewY(0deg);
+            }
+        }
+
+        /* Container for the circuit board effect */
+        .circuit-container {
+            position: relative;
+            background-color: #1a1e26;
+            border: 1px solid rgba(48, 54, 61, 0.5);
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* SVG styling for the paths and nodes */
+        .circuit-path {
+            fill: none;
+            stroke: #00f0ff;
+            stroke-width: 1.5;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .circuit-node {
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            fill: #ffffff;
+        }
+
+        .circuit-node:hover {
+            fill: #00f0ff;
+            box-shadow: 0 0 10px #00f0ff;
+            animation: pulse-node 1s infinite alternate;
+        }
+
+        /* Glitch animation for the paths */
+        @keyframes glitch-path {
+            0% {
+                stroke-dashoffset: 0;
+            }
+
+            50% {
+                stroke-dashoffset: 100;
+            }
+
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .glitch-path {
+            stroke-dasharray: 50, 50;
+            animation: glitch-path 3s linear infinite;
+        }
+
+        /* Pulse animation for the nodes */
+        @keyframes pulse-node {
+            0% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 5px #00f0ff);
+            }
+
+            100% {
+                transform: scale(1.2);
+                filter: drop-shadow(0 0 10px #00f0ff);
+            }
+        }
+
+        /* Custom tooltip for node information */
+        .api-tooltip {
+            position: absolute;
+            background-color: rgba(26, 30, 40, 0.9);
+            border: 1px solid #00f0ff;
+            color: #ffffff;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            z-index: 10;
+        }
+
+        .api-tooltip.visible {
+            opacity: 1;
+            transform: translateY(-10px);
+        }
+
+        #hero-background-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /*
+         * The container for the canvas must be relative to allow the canvas to position correctly.
+         * The height is set to 100vh for a full-screen effect.
+         */
+        .hero-container {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #0d1117;
+            /* Set a background color for when the canvas is loading */
+        }
+    </style>
+</head>
+
+<body class="bg-[#0d1117] text-white leading-relaxed">
+    <!-- Header -->
+    <header
+        class="fixed top-0 left-0 w-full z-50 bg-opacity-70 backdrop-filter backdrop-blur-md border-b-2 border-[#00f0ff] p-4 relative overflow-hidden">
+        <div class="header-bg-animation"></div>
+        <div
+            class="container mx-auto flex justify-between items-center relative z-10 flex-col md:flex-row space-y-4 md:space-y-0">
+            <h1 class="text-3xl font-extrabold text-[#00f0ff] tracking-widest animate-pulse">
+                MW // <span class="text-white">PORTFOLIO</span>
+            </h1>
+            <nav class="w-full md:w-auto">
+                <ul class="flex justify-center flex-wrap space-x-2 md:space-x-8 text-sm md:text-base text-gray-400">
+                    <li><a href="#hero"
+                            class="hover:text-[#ff0000] transition-colors hover:scale-105 duration-300 transform header-link-glow">INIT</a>
+                    </li>
+                    <li><a href="#about"
+                            class="hover:text-[#ff0000] transition-colors hover:scale-105 duration-300 transform header-link-glow">ABOUT</a>
+                    </li>
+                    <li><a href="#projects"
+                            class="hover:text-[#ff0000] transition-colors hover:scale-105 duration-300 transform header-link-glow">PROJECTS</a>
+                    </li>
+                    <li><a href="#contact"
+                            class="hover:text-[#ff0000] transition-colors hover:scale-105 duration-300 transform header-link-glow">CONNECT</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="mt-20">
+        <!-- Section 1: Hero - Core Processor with Particle Effect -->
+        <canvas id="hero-background-canvas" class="z-0"></canvas>
+        <section id="hero" class="h-screen flex items-center justify-center text-center relative p-4 z-10">
+            <canvas id="particle-canvas" class="absolute inset-0"></canvas>
+            <div class="space-y-6 relative z-10">
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-widest">
+                    <span class="inline-block animate-[hero-glitch-1_2s_infinite]">M</span>ILES <span
+                        class="inline-block animate-[hero-glitch-2_2s_infinite_1s]">W</span>ALKER
+                </h1>
+                <p class="text-xl md:text-3xl text-gray-400 font-medium">
+                    // Web Solutions Engineer
+                </p>
+                <button id="hero-button"
+                    class="px-8 py-3 bg-[#00f0ff] text-[#0d1117] font-bold rounded-full transition-all hover:bg-[#ff0000] hover:text-white transform hover:scale-105 duration-300 shadow-lg animate-[button-glow_2s_infinite]">
+                    Initiate Connection
+                </button>
+            </div>
+        </section>
+
+        <!-- Section 2: About - Interactive Flip Cards -->
+        <section id="about" class="py-20 animated-section relative z-10">
+            <div class="container mx-auto max-w-4xl p-6 text-center">
+                <h2 class="text-4xl md:text-6xl font-extrabold mb-12 text-white">SYSTEM // DIAGNOSTICS</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="flip-card">
+                        <div
+                            class="flip-card-inner bg-[#161b22] rounded-2xl shadow-xl border border-[#30363d] p-4 min-h-[300px]">
+                            <div class="flip-card-front flex flex-col justify-center items-center">
+                                <i class="fas fa-brain text-6xl text-[#00f0ff] mb-4"></i>
+                                <h3 class="text-2xl font-bold">CORE LOGIC</h3>
+                            </div>
+                            <div class="flip-card-back flex flex-col justify-center items-center text-gray-300 p-2">
+                                <p>My core logic is calibrated for algorithmic precision. I am a digital architect, not
+                                    just a coder, building systems with a mechanical focus on efficiency and
+                                    scalability.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card">
+                        <div
+                            class="flip-card-inner bg-[#161b22] rounded-2xl shadow-xl border border-[#30363d] p-4 min-h-[300px]">
+                            <div class="flip-card-front flex flex-col justify-center items-center">
+                                <i class="fas fa-robot text-6xl text-[#00f0ff] mb-4"></i>
+                                <h3 class="text-2xl font-bold">PRIMARY FUNCTION</h3>
+                            </div>
+                            <div class="flip-card-back flex flex-col justify-center items-center text-gray-300 p-2">
+                                <p>My primary function is to transform complex ideas into flawless web applications,
+                                    fusing creative design with machine-like execution for robust and dynamic
+                                    interfaces.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Services - Liquid Cards -->
+        <section id="services" class="py-20 animated-section relative z-10">
+            <div class="container mx-auto max-w-6xl p-6 text-center">
+                <h2 class="text-4xl md:text-6xl font-extrabold mb-12 text-white">FUNCTIONAL // MODULES</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div
+                        class="liquid-card bg-[#161b22] p-8 rounded-2xl shadow-xl border border-[#30363d] transform hover:scale-105 transition-transform duration-300 relative overflow-hidden">
+                        <i class="fas fa-microchip text-5xl text-[#00f0ff] mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-2">Frontend Engineering</h3>
+                        <p class="text-gray-400">Precision-crafted user interfaces using React, HTML, CSS, and Tailwind
+                            CSS.</p>
+                    </div>
+                    <div
+                        class="liquid-card bg-[#161b22] p-8 rounded-2xl shadow-xl border border-[#30363d] transform hover:scale-105 transition-transform duration-300 relative overflow-hidden">
+                        <i class="fab fa-wordpress text-5xl text-[#00f0ff] mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-2">WP & Wix Optimization</h3>
+                        <p class="text-gray-400">Streamlining content management systems for peak performance and
+                            security.</p>
+                    </div>
+                    <div
+                        class="liquid-card bg-[#161b22] p-8 rounded-2xl shadow-xl border border-[#30363d] transform hover:scale-105 transition-transform duration-300 relative overflow-hidden">
+                        <i class="fas fa-network-wired text-5xl text-[#00f0ff] mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-2">API Integration</h3>
+                        <p class="text-gray-400">Seamlessly connecting data streams to power dynamic web applications.
+                        </p>
+                    </div>
+                    <div
+                        class="liquid-card bg-[#161b22] p-8 rounded-2xl shadow-xl border border-[#30363d] transform hover:scale-105 transition-transform duration-300 relative overflow-hidden">
+                        <i class="fas fa-shield-alt text-5xl text-[#00f0ff] mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-2">System Maintenance</h3>
+                        <p class="text-gray-400">Continuous monitoring and updates to ensure platform stability and
+                            longevity.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Skills - Interactive Pulsing Rings -->
+        <section id="skills" class="py-20 animated-section relative z-10">
+            <div class="container mx-auto max-w-4xl p-6 text-center">
+                <h2 class="text-4xl md:text-6xl font-extrabold mb-12 text-white">TECHNICAL // PROTOCOL</h2>
+                <div class="flex flex-wrap justify-center gap-6">
+                    <div class="skill-ring bg-[#161b22] p-6 rounded-full shadow-xl cursor-pointer"
+                        onclick="togglePulse(this)">
+                        <p class="text-xl font-bold text-[#00f0ff]">REACT.JS</p>
+                    </div>
+                    <div class="skill-ring bg-[#161b22] p-6 rounded-full shadow-xl cursor-pointer"
+                        onclick="togglePulse(this)">
+                        <p class="text-xl font-bold text-[#00f0ff]">TAILWIND CSS</p>
+                    </div>
+                    <div class="skill-ring bg-[#161b22] p-6 rounded-full shadow-xl cursor-pointer"
+                        onclick="togglePulse(this)">
+                        <p class="text-xl font-bold text-[#00f0ff]">BOOTSTRAP</p>
+                    </div>
+                    <div class="skill-ring bg-[#161b22] p-6 rounded-full shadow-xl cursor-pointer"
+                        onclick="togglePulse(this)">
+                        <p class="text-xl font-bold text-[#00f0ff]">HTML5</p>
+                    </div>
+                    <div class="skill-ring bg-[#161b22] p-6 rounded-full shadow-xl cursor-pointer"
+                        onclick="togglePulse(this)">
+                        <p class="text-xl font-bold text-[#00f0ff]">CSS3</p>
+                    </div>
+                    <div class="skill-ring bg-[#161b22] p-6 rounded-full shadow-xl cursor-pointer"
+                        onclick="togglePulse(this)">
+                        <p class="text-xl font-bold text-[#00f0ff]">JAVASCRIPT</p>
+                    </div>
+                    <div class="skill-ring bg-[#161b22] p-6 rounded-full shadow-xl cursor-pointer"
+                        onclick="togglePulse(this)">
+                        <p class="text-xl font-bold text-[#00f0ff]">API INTEGRATION</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Projects - Shard effect on hover -->
+        <section id="projects" class="py-20 relative z-10">
+            <div class="container mx-auto max-w-6xl p-6 text-center">
+                <h2 class="text-4xl md:text-6xl font-extrabold mb-12 text-white">PROJECT // DATA VAULT</h2>
+                <!-- The grid will be a single column on small screens, two columns on medium, and three on large -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Project 1 -->
+                    <div class="holographic-card relative group">
+                        <div class="content-wrapper p-6">
+                            <img src="https://placehold.co/400x200/1e2a3a/00f0ff?text=Project+Protocol"
+                                alt="Project Placeholder" class="holographic-img w-full h-auto rounded-lg mb-4">
+                            <h3 class="text-2xl font-bold mb-2 holographic-title text-white">Project Protocol</h3>
+                            <p class="text-gray-300">A high-fidelity landing page system built with modular components
+                                and Tailwind.</p>
+                        </div>
+                    </div>
+                    <!-- Project 2 -->
+                    <div class="holographic-card relative group">
+                        <div class="content-wrapper p-6">
+                            <img src="https://placehold.co/400x200/1e2a3a/00f0ff?text=Data+Interface"
+                                alt="Project Placeholder" class="holographic-img w-full h-auto rounded-lg mb-4">
+                            <h3 class="text-2xl font-bold mb-2 holographic-title text-white">Data Interface</h3>
+                            <p class="text-gray-300">A real-time data terminal demonstrating complex API integration and
+                                a dynamic UI.</p>
+                        </div>
+                    </div>
+                    <!-- Project 3 -->
+                    <div class="holographic-card relative group">
+                        <div class="content-wrapper p-6">
+                            <img src="https://placehold.co/400x200/1e2a3a/00f0ff?text=Content+Engine"
+                                alt="Project Placeholder" class="holographic-img w-full h-auto rounded-lg mb-4">
+                            <h3 class="text-2xl font-bold mb-2 holographic-title text-white">Automated Content Engine
+                            </h3>
+                            <p class="text-gray-300">A custom-built WordPress theme optimized for automated content
+                                delivery and SEO.</p>
+                        </div>
+                    </div>
+                    <!-- Project 4 -->
+                    <div class="holographic-card relative group">
+                        <div class="content-wrapper p-6">
+                            <img src="https://placehold.co/400x200/1e2a3a/00f0ff?text=UI+Matrix"
+                                alt="Project Placeholder" class="holographic-img w-full h-auto rounded-lg mb-4">
+                            <h3 class="text-2xl font-bold mb-2 holographic-title text-white">UI Matrix V.2</h3>
+                            <p class="text-gray-300">A React-based application featuring a holographic interface and
+                                multi-state management.</p>
+                        </div>
+                    </div>
+                    <!-- Project 5 -->
+                    <div class="holographic-card relative group">
+                        <div class="content-wrapper p-6">
+                            <img src="https://placehold.co/400x200/1e2a3a/00f0ff?text=E-commerce+Framework"
+                                alt="Project Placeholder" class="holographic-img w-full h-auto rounded-lg mb-4">
+                            <h3 class="text-2xl font-bold mb-2 holographic-title text-white">E-commerce Framework</h3>
+                            <p class="text-gray-300">An advanced Wix solution with custom-coded features for a seamless
+                                shopping experience.</p>
+                        </div>
+                    </div>
+                    <!-- Project 6 -->
+                    <div class="holographic-card relative group">
+                        <div class="content-wrapper p-6">
+                            <img src="https://placehold.co/400x200/1e2a3a/00f0ff?text=Portfolio+AI"
+                                alt="Project Placeholder" class="holographic-img w-full h-auto rounded-lg mb-4">
+                            <h3 class="text-2xl font-bold mb-2 holographic-title text-white">Portfolio AI</h3>
+                            <p class="text-gray-300">A self-generating portfolio engine, demonstrating AI-driven content
+                                and design.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: API Integration - Interactive Network -->
+        <section id="api" class="py-20 animated-section relative z-10">
+            <div class="container mx-auto max-w-6xl p-6 text-center">
+                <h2 class="text-4xl md:text-6xl font-extrabold mb-12 text-white">API // DATA PIPELINE</h2>
+                <div class="circuit-container p-8 md:p-12 relative">
+                    <p class="text-lg md:text-xl text-gray-300 mb-8">
+                        Data streams flow through the system with engineered precision. Interact with the nodes to see
+                        the core principles of my API integration protocol.
+                    </p>
+
+                    <!-- The container height is now responsive for all screen sizes -->
+                    <div class="flex justify-center items-center relative w-full h-48 sm:h-64 md:h-96">
+                        <svg class="absolute w-full h-full z-20" viewBox="0 0 100 100"
+                            preserveAspectRatio="xMidYMid meet">
+                            <!-- Main Path -->
+                            <path id="path-main" class="circuit-path glitch-path" d="M 5 50 H 95"></path>
+                            <!-- Branching Paths -->
+                            <path id="path-branch-1" class="circuit-path glitch-path" d="M 50 50 L 50 20 L 75 20">
+                            </path>
+                            <path id="path-branch-2" class="circuit-path glitch-path" d="M 50 50 L 50 80 L 75 80">
+                            </path>
+
+                            <!-- Nodes -->
+                            <circle cx="5" cy="50" r="4" class="circuit-node" data-info="Data Source Node"></circle>
+                            <circle cx="95" cy="50" r="4" class="circuit-node" data-info="Data Destination Node">
+                            </circle>
+                            <circle cx="50" cy="50" r="3" class="circuit-node" data-info="Core Processing Unit">
+                            </circle>
+                            <circle cx="75" cy="20" r="3" class="circuit-node" data-info="Analytics Hub"></circle>
+                            <circle cx="75" cy="80" r="3" class="circuit-node" data-info="Storage Array"></circle>
+                        </svg>
+                        <div id="tooltip" class="api-tooltip"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Maintenance - Interactive Gauges - REVISED -->
+        <section id="maintenance" class="py-20 animated-section relative z-10">
+            <div class="container mx-auto max-w-4xl p-6 text-center">
+                <h2 class="text-4xl md:text-6xl font-extrabold mb-12 text-white">SYSTEM // LIFECYCLE MANAGEMENT</h2>
+                <div class="bg-[#161b22] p-8 md:p-12 rounded-2xl shadow-xl border border-[#30363d]">
+                    <div class="flex justify-center items-center space-x-8">
+                        <!-- Uptime Gauge -->
+                        <div class="relative w-32 h-32 flex flex-col justify-center items-center">
+                            <svg class="w-full h-full absolute" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" fill="none" stroke="#30363d" stroke-width="10"></circle>
+                                <path id="uptime-arc" d="" fill="none" stroke="#00f0ff" stroke-width="10"
+                                    stroke-linecap="round"></path>
+                            </svg>
+                            <div class="absolute flex flex-col justify-center items-center z-10">
+                                <span id="uptime-gauge" class="text-3xl font-bold text-[#00f0ff]">--%</span>
+                                <span class="text-xs text-gray-400">UPTIME</span>
+                            </div>
+                        </div>
+                        <!-- Security Gauge -->
+                        <div class="relative w-32 h-32 flex flex-col justify-center items-center">
+                            <svg class="w-full h-full absolute" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" fill="none" stroke="#30363d" stroke-width="10"></circle>
+                                <path id="security-arc" d="" fill="none" stroke="#ff0000" stroke-width="10"
+                                    stroke-linecap="round"></path>
+                            </svg>
+                            <div class="absolute flex flex-col justify-center items-center z-10">
+                                <span id="security-gauge" class="text-3xl font-bold text-[#ff0000]">--%</span>
+                                <span class="text-xs text-gray-400">SECURITY</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="updateGauges()"
+                        class="mt-8 px-8 py-3 bg-[#ff0000] text-[#0d1117] font-bold rounded-full transition-all hover:bg-[#00f0ff] hover:text-white transform hover:scale-105 duration-300">
+                        Run Diagnostics
+                    </button>
+                    <p id="diagnostics-message" class="mt-4 text-sm text-gray-400">Awaiting manual run.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Testimonials - Glitching Quotes -->
+        <section id="testimonials" class="py-20 animated-section relative z-10">
+            <div class="container mx-auto max-w-4xl p-6 text-center">
+                <h2 class="text-4xl md:text-6xl font-extrabold mb-12 text-white">CLIENT // DATA LOGS</h2>
+                <div
+                    class="bg-[#161b22] p-8 md:p-12 rounded-2xl shadow-xl border border-[#30363d] relative overflow-hidden min-h-[250px]">
+                    <div class="testimonial-text absolute inset-0 flex flex-col justify-center items-center p-8 active"
+                        data-index="0">
+                        <p class="italic mb-4 text-gray-300 text-lg">"Miles didn't just build a website; he engineered a
+                            digital platform. The performance metrics are off the charts, and the design is a
+                            masterpiece of precision."</p>
+                        <p class="font-bold text-white">- E. V. A. Corp, CEO</p>
+                    </div>
+                    <div class="testimonial-text absolute inset-0 flex flex-col justify-center items-center p-8"
+                        data-index="1">
+                        <p class="italic mb-4 text-gray-300 text-lg">"Working with Miles is like uploading a perfect
+                            blueprint. The final product is always flawless, clean, and runs with zero bugs. A true
+                            digital engineer."</p>
+                        <p class="font-bold text-white">- Dr. A. L. G. Rithm, Lead Engineer</p>
+                    </div>
+                    <div class="testimonial-text absolute inset-0 flex flex-col justify-center items-center p-8"
+                        data-index="2">
+                        <p class="italic mb-4 text-gray-300 text-lg">"His maintenance protocol is excellent. We've had
+                            100% uptime since he took over. It's like having a digital guardian on constant watch."</p>
+                        <p class="font-bold text-white">- T. E. C. H., Founder</p>
+                    </div>
+                    <button onclick="nextTestimonial()"
+                        class="absolute bottom-4 right-4 text-xl text-[#00f0ff] hover:scale-125 transition-transform duration-300">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 9: Robotic Focus - Interactive Circuit Board -->
+        <section id="robotic-focus" class="py-20 animated-section relative z-10">
+            <div class="container mx-auto max-w-4xl p-6 text-center">
+                <h2 class="text-4xl md:text-6xl font-extrabold mb-12 text-white">PRECISION // ENGINEERING</h2>
+                <div class="circuit-panel bg-[#161b22] p-8 md:p-12 rounded-2xl shadow-xl border border-[#30363d]">
+                    <p class="text-lg md:text-xl text-gray-300 mb-8">
+                        Interact with the circuit to activate a core principle. My work is a mechanical process where
+                        every pixel serves a precise purpose.
+                    </p>
+                    <div class="flex flex-wrap justify-center space-x-4 space-y-4 md:space-y-0">
+                        <button
+                            class="bg-[#00f0ff] text-[#0d1117] px-6 py-2 rounded-full font-bold hover:bg-[#ff0000] transition-colors"
+                            onclick="updateRoboticFocus('perfect execution')">
+                            EXECUTE
+                        </button>
+                        <button
+                            class="bg-[#00f0ff] text-[#0d1117] px-6 py-2 rounded-full font-bold hover:bg-[#ff0000] transition-colors"
+                            onclick="updateRoboticFocus('flawless logic')">
+                            LOGIC
+                        </button>
+                        <button
+                            class="bg-[#00f0ff] text-[#0d1117] px-6 py-2 rounded-full font-bold hover:bg-[#ff0000] transition-colors"
+                            onclick="updateRoboticFocus('dynamic systems')">
+                            SYSTEMS
+                        </button>
+                    </div>
+                    <p id="robotic-focus-display" class="mt-8 text-2xl font-bold text-[#ff0000]">Awaiting Command...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 10: Contact Form - Animated Inputs -->
+        <section id="contact" class="py-20 animated-section relative z-10">
+            <div class="container mx-auto max-w-xl p-6 text-center">
+                <h2 class="text-4xl md:text-6xl font-extrabold mb-12 text-white z-10 relative">CONNECTION // REQUEST
+                </h2>
+
+                <form
+                    class="bg-[#161b22] p-8 md:p-12 rounded-2xl shadow-xl border border-[#30363d] space-y-6 relative z-10">
+                    <div>
+                        <label for="name" class="block text-gray-300 mb-2 text-left">Name</label>
+                        <input type="text" id="name" name="name"
+                            class="w-full bg-[#0d1117] text-white p-3 rounded-md border border-[#30363d] focus:outline-none scanline-input">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-gray-300 mb-2 text-left">Email</label>
+                        <input type="email" id="email" name="email"
+                            class="w-full bg-[#0d1117] text-white p-3 rounded-md border border-[#30363d] focus:outline-none scanline-input">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-gray-300 mb-2 text-left">Message</label>
+                        <textarea id="message" name="message" rows="4"
+                            class="w-full bg-[#0d1117] text-white p-3 rounded-md border border-[#30363d] focus:outline-none scanline-input"></textarea>
+                    </div>
+                    <button type="submit"
+                        class="w-full px-8 py-3 bg-[#ff0000] text-[#0d1117] font-bold rounded-full transition-all hover:bg-[#00f0ff] hover:text-white transform hover:scale-105 duration-300">
+                        Submit // Data
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-terminal bg-[#0d1117] p-8 md:p-12 text-center relative overflow-hidden relative z-10">
+        <div class="footer-matrix-bg"></div>
+        <div
+            class="container mx-auto flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 relative z-10">
+            <p class="text-gray-400">&copy; 2025 Miles Walker. System Status: <span class="text-[#00f0ff] font-bold">ALL
+                    SYSTEMS GO</span></p>
+            <div class="flex space-x-6 text-2xl">
+                <a href="#"
+                    class="text-gray-400 hover:text-[#00f0ff] transition-colors hover:scale-125 duration-300 transform"><i
+                        class="fab fa-github"></i></a>
+                <a href="#"
+                    class="text-gray-400 hover:text-[#00f0ff] transition-colors hover:scale-125 duration-300 transform"><i
+                        class="fab fa-linkedin"></i></a>
+                <a href="#"
+                    class="text-gray-400 hover:text-[#00f0ff] transition-colors hover:scale-125 duration-300 transform"><i
+                        class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for interactive animations -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const nodes = document.querySelectorAll('.circuit-node');
+            const tooltip = document.getElementById('tooltip');
+
+            nodes.forEach(node => {
+                node.addEventListener('mouseenter', (e) => {
+                    const info = node.getAttribute('data-info');
+                    tooltip.textContent = info;
+                    tooltip.style.top = `${e.clientY - 20}px`;
+                    tooltip.style.left = `${e.clientX}px`;
+                    tooltip.classList.add('visible');
+
+                    // You can add logic here to change path colors based on the node hovered
+                    // For example:
+                    // if (info.includes('Source')) {
+                    //    document.getElementById('path-main').style.stroke = '#00f0ff';
+                    // }
+                });
+
+                node.addEventListener('mouseleave', () => {
+                    tooltip.classList.remove('visible');
+                    // Reset path colors if you changed them
+                });
+
+                node.addEventListener('mousemove', (e) => {
+                    tooltip.style.top = `${e.clientY - 40}px`;
+                    tooltip.style.left = `${e.clientX + 10}px`;
+                });
+            });
+        });
+    </script>
+
+    <script>
+        // Intersection Observer for section animations
+        const sections = document.querySelectorAll('.animated-section');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        sections.forEach(section => observer.observe(section));
+
+        // Particle effect for Hero section
+        const canvas = document.getElementById('particle-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let mouse = { x: null, y: null };
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            canvas.addEventListener('mousemove', (e) => {
+                mouse.x = e.x;
+                mouse.y = e.y;
+            });
+            canvas.addEventListener('mouseleave', () => {
+                mouse.x = null;
+                mouse.y = null;
+            });
+
+            function Particle(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 3 - 1.5;
+                this.speedY = Math.random() * 3 - 1.5;
+            }
+
+            Particle.prototype.draw = function () {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            Particle.prototype.update = function () {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width || this.x < 0) this.speedX = -this.speedX;
+                if (this.y > canvas.height || this.y < 0) this.speedY = -this.speedY;
+
+                // Interaction with mouse
+                if (mouse.x && mouse.y) {
+                    const dx = this.x - mouse.x;
+                    const dy = this.y - mouse.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 100) {
+                        const angle = Math.atan2(dy, dx);
+                        this.x += Math.cos(angle) * 2;
+                        this.y += Math.sin(angle) * 2;
+                    }
+                }
+                this.draw();
+            }
+
+            function init() {
+                particles = [];
+                for (let i = 0; i < 150; i++) {
+                    const x = Math.random() * canvas.width;
+                    const y = Math.random() * canvas.height;
+                    const color = Math.random() > 0.5 ? '#00f0ff' : '#ff0000';
+                    particles.push(new Particle(x, y, color));
+                }
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                }
+                requestAnimationFrame(animateParticles);
+            }
+
+            init();
+            animateParticles();
+        }
+
+        // Section 4: Skills - Interactive Pulse
+        function togglePulse(element) {
+            element.classList.toggle('active');
+        }
+
+        // Section 6: API Integration - Show Info
+        function showApiInfo(nodeName) {
+            const display = document.getElementById('api-info-display');
+            display.textContent = `Protocol Active: ${nodeName}`;
+        }
+        function hideApiInfo() {
+            const display = document.getElementById('api-info-display');
+            display.textContent = 'Hover over a node.';
+        }
+
+        // Section 7: Maintenance - Interactive Gauges - REVISED
+        function updateGauges() {
+            const uptimeText = document.getElementById('uptime-gauge');
+            const securityText = document.getElementById('security-gauge');
+            const uptimeArc = document.getElementById('uptime-arc');
+            const securityArc = document.getElementById('security-arc');
+            const message = document.getElementById('diagnostics-message');
+
+            message.textContent = 'Running diagnostics...';
+
+            const circumference = 2 * Math.PI * 45;
+
+            // Function to generate an arc path
+            function generateArc(percentage) {
+                const angle = percentage * 360 / 100;
+                const radians = (angle - 90) * Math.PI / 180;
+                const x = 50 + 45 * Math.cos(radians);
+                const y = 50 + 45 * Math.sin(radians);
+                return `M 50 5 C 50 5, 50 5, ${x} ${y}`;
+            }
+
+            // Simulate a diagnostics check
+            setTimeout(() => {
+                const newUptime = (99.9 + Math.random() * 0.1).toFixed(1);
+                const newSecurity = 100;
+
+                // Animate the values and arcs
+                let currentUptime = 0;
+                let currentSecurity = 0;
+                const interval = setInterval(() => {
+                    if (currentUptime < newUptime) {
+                        currentUptime += 1;
+                        uptimeText.textContent = `${currentUptime.toFixed(0)}%`;
+                        uptimeArc.setAttribute('d', generateArc(currentUptime));
+                    }
+                    if (currentSecurity < newSecurity) {
+                        currentSecurity += 1;
+                        securityText.textContent = `${currentSecurity.toFixed(0)}%`;
+                        securityArc.setAttribute('d', generateArc(currentSecurity));
+                    }
+                    if (currentUptime >= newUptime && currentSecurity >= newSecurity) {
+                        clearInterval(interval);
+                        uptimeText.textContent = `${newUptime}%`;
+                        securityText.textContent = `${newSecurity}%`;
+                        message.textContent = `Last check: System diagnostics complete at ${new Date().toLocaleTimeString()}.`;
+                    }
+                }, 10);
+
+            }, 1000);
+        }
+
+        // Section 8: Testimonials - Glitching Quotes
+        let currentTestimonial = 0;
+        const testimonials = document.querySelectorAll('.testimonial-text');
+
+        function nextTestimonial() {
+            testimonials[currentTestimonial].classList.remove('active');
+
+            setTimeout(() => {
+                testimonials[currentTestimonial].style.opacity = '0';
+                currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+                testimonials[currentTestimonial].style.opacity = '1';
+                testimonials[currentTestimonial].classList.add('active');
+            }, 200);
+        }
+
+        // Section 9: Robotic Focus - Update Text
+        function updateRoboticFocus(principle) {
+            const display = document.getElementById('robotic-focus-display');
+            display.textContent = `Principle Active: ${principle.toUpperCase()}`;
+        }
+    </script>
+    <script>
+        // All variables are now prefixed with 'hero' to avoid conflicts
+        const heroCanvas = document.getElementById('hero-background-canvas');
+        const heroCtx = heroCanvas.getContext('2d');
+        let heroParticles = [];
+        const numHeroParticles = 100;
+        const heroParticleColor = 'rgba(0, 240, 255, 0.2)';
+        const heroParticleSize = 1;
+        const heroParticleSpeed = 0.5;
+
+        // Particle class for the background animation
+        class HeroParticle {
+            constructor() {
+                this.x = Math.random() * heroCanvas.width;
+                this.y = Math.random() * heroCanvas.height;
+                this.speed = Math.random() * heroParticleSpeed + 0.1;
+            }
+            update() {
+                this.y += this.speed;
+                if (this.y > heroCanvas.height) {
+                    this.y = 0;
+                    this.x = Math.random() * heroCanvas.width;
+                }
+            }
+            draw() {
+                heroCtx.beginPath();
+                heroCtx.arc(this.x, this.y, heroParticleSize, 0, Math.PI * 2);
+                heroCtx.fillStyle = heroParticleColor;
+                heroCtx.fill();
+            }
+        }
+
+        // Resizes the canvas to fill the entire window
+        const resizeHeroCanvas = () => {
+            heroCanvas.width = window.innerWidth;
+            heroCanvas.height = window.innerHeight;
+            heroParticles = [];
+            for (let i = 0; i < numHeroParticles; i++) {
+                heroParticles.push(new HeroParticle());
+            }
+        };
+
+        // The main animation loop
+        const animateHero = () => {
+            requestAnimationFrame(animateHero);
+            // This line creates a trailing effect by partially clearing the canvas
+            heroCtx.fillStyle = 'rgba(13, 17, 23, 0.1)';
+            heroCtx.fillRect(0, 0, heroCanvas.width, heroCanvas.height);
+            heroParticles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+        };
+
+        // Event listeners to handle resizing and starting the animation
+        window.addEventListener('resize', resizeHeroCanvas);
+        window.onload = function () {
+            resizeHeroCanvas();
+            animateHero();
+        };
+    </script>
+</body>
+
+</html>
